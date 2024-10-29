@@ -1,9 +1,11 @@
- Set the IP address of the local DNS server and a public DNS server
+import dns.resolver
+
+# Set the IP address of the local DNS server and a public DNS server
 local_host_ip = '127.0.0.1' # Reliable Local Server
-real_name_server = '1.1.1.1' # Public DNS Server - Google
+real_name_server = '8.8.8.8' # Public DNS Server - Google
 
 # Create a list of domain names to query - use the same list from the DNS Server
-domainList  = ['example.com','safebank.com','google.com','nyu.edu','legitsite.com']
+domainList  = ['example.com.','safebank.com.','google.com.','nyu.edu.','legitsite.com.']
 
 # Define a function to query the local DNS server for the IP address of a given domain name
 def query_local_dns_server(domain,question_type):
@@ -44,8 +46,8 @@ def local_external_DNS_output(question_type):
         ip_address = query_dns_server(domain_name,question_type)
         print(f"The IP address of {domain_name} is {ip_address}")
         
-def exfiltrate_info(domain_name, question_type): # testing method for part 2
-    data = query_local_dns_server(domain_name, question_type)
+def exfiltrate_info(domainList, question_type): # testing method for part 2
+    data = query_local_dns_server(domainList, question_type)
     return data
         
 if __name__ == '__main__':
